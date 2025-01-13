@@ -1,4 +1,7 @@
 import { Hono } from 'hono';
+import { handle } from 'hono/vercel'
+
+export const runtime = 'edge'
 
 // Initialize Hono app
 const app = new Hono();
@@ -54,5 +57,5 @@ app.get('/', (c) => {
   return c.text('Authentication Server is Running');
 });
 
-// Export the Hono app to be used as a Vercel function
-export default app.fetch;
+export const GET = handle(app)
+export const POST = handle(app)
