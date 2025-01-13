@@ -4,7 +4,7 @@ import { handle } from 'hono/vercel'
 export const runtime = 'edge'
 
 // Initialize Hono app
-const app = new Hono();
+const app = new Hono().basePath('/api');
 
 // // Define environment variables (these should be set in Vercel's environment settings)
 // const CLIENT_ID = process.env.CLIENT_ID!;
