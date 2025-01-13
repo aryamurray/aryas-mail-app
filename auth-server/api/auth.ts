@@ -54,5 +54,5 @@ app.get('/', (c) => {
   return c.text('Authentication Server is Running');
 });
 
-// Export the Hono app to be used by Vercel
-export default app;
+// Export the Hono app to be used as a Vercel function
+export default app.fetch;
