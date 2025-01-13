@@ -3,7 +3,7 @@
     "builds": [
       {
         "src": "api/auth.ts",
-        "use": "@vercel/bun"
+        "use": "@vercel/node"
       }
     ]
   }
