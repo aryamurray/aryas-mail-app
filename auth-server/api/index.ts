@@ -9,13 +9,13 @@ const app = new Hono().basePath('/api');
 // Define environment variables (these should be set in Vercel's environment settings)
 const CLIENT_ID = process.env.CLIENT_ID!;
 const CLIENT_SECRET = process.env.CLIENT_SECRET!;
-const REDIRECT_URI = process.env.REDIRECT_URI!;
+const VERCEL_URL = process.env.VERCEL_URL!
 const OAUTH_URL = 'https://accounts.google.com/o/oauth2/v2/auth';
 const TOKEN_URL = 'https://oauth2.googleapis.com/token';
 
 // Handle OAuth Authentication Request
 app.get('/auth', (c) => {
-  const authUrl = `${OAUTH_URL}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code&scope=openid email profile`;
+  const authUrl = `${OAUTH_URL}?client_id=${CLIENT_ID}&redirect_uri=${VERCEL_URL}/callback&response_type=code&scope=openid email profile`;
   return c.redirect(authUrl);
 });
 
@@ -37,7 +37,7 @@ app.get('/callback', async (c) => {
       code: code,
       client_id: CLIENT_ID,
       client_secret: CLIENT_SECRET,
-      redirect_uri: REDIRECT_URI,
+      redirect_uri: `${VERCEL_URL}/callback`,
       grant_type: 'authorization_code',
     }),
   });
