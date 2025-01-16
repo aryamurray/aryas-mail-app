@@ -17,26 +17,30 @@ const oauth2Client = new OAuth2Client(
 	'https://aryas-mail-app.vercel.app/api/'
 )
 
-// Handle OAuth Callback and Exchange Code for Access Token
-app.post('/callback', async (c) => {
+app.get('/callback', async (c) => {
 	try {
-		const { code } = await c.req.json()
+		// Extract the 'code' from the query parameters
+		const { code } = c.req.query()
 
-		if (!code) return c.json({ error: 'No code was Provided' }, 400)
+		// Ensure the 'code' is provided
+		if (!code) {
+			return c.json({ error: 'No code was provided' }, 400)
+		}
 
-		// Exchange code for tokens
+		// Exchange the code for tokens
 		const { tokens } = await oauth2Client.getToken({
 			code,
-			redirect_uri: 'https://aryas-mail-app.vercel.app/api/'
+			redirect_uri: 'https://aryas-mail-app.vercel.app/api/done' // This must match the registered redirect URI in GCP
 		})
+
 		const { access_token, refresh_token } = tokens
 
-		// Store these securely (e.g., in a database)
-		// Return tokens to the client (or manage them on the server-side)
+		// Optionally store the tokens securely (e.g., in a session or database)
+		// Or send the tokens back to the frontend
 		return c.json({ access_token, refresh_token })
 	} catch (error) {
 		console.error('Error:', error)
-		return c.json({ error: `Failed to exchange code${error}` }, 500)
+		return c.json({ error: `Failed to exchange code: ${error}` }, 500)
 	}
 })
 
