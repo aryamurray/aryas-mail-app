@@ -14,8 +14,8 @@ const OAUTH_URL = 'https://accounts.google.com/o/oauth2/v2/auth'
 const TOKEN_URL = 'https://oauth2.googleapis.com/token'
 
 const oauth2Client = new OAuth2Client(
-	process.env.GOOGLE_CLIENT_ID,
-	process.env.GOOGLE_CLIENT_SECRET,
+	process.env.CLIENT_ID,
+	process.env.CLIENT_SECRET,
 	process.env.REDIRECT_URI // Usually your backend URL
 )
 
@@ -26,9 +26,11 @@ app.get('/auth', (c) => {
 })
 
 // Handle OAuth Callback and Exchange Code for Access Token
-app.get('/callback', async (c) => {
+app.post('/callback', async (c) => {
 	try {
 		const { code } = await c.req.json()
+
+		if (!code) return c.json({ error: 'No code was Provided' }, 400)
 
 		// Exchange code for tokens
 		const { tokens } = await oauth2Client.getToken(code)
