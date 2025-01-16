@@ -4,25 +4,10 @@ import React, { useEffect, useState } from 'react'
 import { fetch } from '@tauri-apps/plugin-http'
 import { onUrl, start } from '@fabianlars/tauri-plugin-oauth'
 
-const LoginButton = async () => {
-	const [port, setPort] = useState<number | undefined>()
-	const [url, setUrl] = useState<string>()
-
-	useEffect(() => {
-		const startServer = async () => {
-			if (port) return
-			const newPort = await start()
-			setPort(newPort)
-
-			// Set up listeners for OAuth results
-			await onUrl(setUrl)
-		}
-		startServer()
-	}, [])
-
+const LoginButton = () => {
 	const login = useGoogleLogin({
 		flow: 'auth-code',
-		redirect_uri: 'https://localhost:12000',
+		// redirect_uri: '',
 		onSuccess: async (codeResponse) => {
 			console.log('pre-authed code', codeResponse)
 
