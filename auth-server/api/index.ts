@@ -21,7 +21,10 @@ app.post('/callback', async (c) => {
 		if (!code) return c.json({ error: 'No code was Provided' }, 400)
 
 		// Exchange code for tokens
-		const { tokens } = await oauth2Client.getToken(code)
+		const { tokens } = await oauth2Client.getToken({
+			code,
+			redirect_uri: 'https://www.google.com'
+		})
 		const { access_token, refresh_token } = tokens
 
 		// Store these securely (e.g., in a database)
