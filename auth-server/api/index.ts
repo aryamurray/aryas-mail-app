@@ -19,12 +19,6 @@ const oauth2Client = new OAuth2Client(
 	process.env.REDIRECT_URI // Usually your backend URL
 )
 
-// Handle OAuth Authentication Request
-app.get('/auth', (c) => {
-	const authUrl = `${OAUTH_URL}?client_id=${CLIENT_ID}&redirect_uri=${VERCEL_URL}/callback&response_type=code&scope=openid email profile`
-	return c.redirect(authUrl)
-})
-
 // Handle OAuth Callback and Exchange Code for Access Token
 app.post('/callback', async (c) => {
 	try {
@@ -41,7 +35,7 @@ app.post('/callback', async (c) => {
 		return c.json({ access_token, refresh_token })
 	} catch (error) {
 		console.error('Error:', error)
-		return c.json({ error: 'Failed to exchange code' }, 500)
+		return c.json({ error: `Failed to exchange code${error}` }, 500)
 	}
 })
 
