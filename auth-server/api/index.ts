@@ -23,7 +23,7 @@ app.post('/callback', async (c) => {
 		// Exchange code for tokens
 		const { tokens } = await oauth2Client.getToken({
 			code,
-			redirect_uri: 'https://aryas-mail-app.vercel.app/api/done'
+			redirect_uri: 'https://localhost:12000'
 		})
 		const { access_token, refresh_token } = tokens
 
