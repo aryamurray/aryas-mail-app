@@ -36,6 +36,10 @@ app.post('/callback', async (c) => {
 	}
 })
 
+app.get('/done', (c) => {
+	return c.text('Close this tab.')
+})
+
 // Handle default route
 app.get('/', (c) => {
 	return c.text('Authentication Server is Running')
