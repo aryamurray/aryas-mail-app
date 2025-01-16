@@ -11,7 +11,11 @@ const CLIENT_ID = process.env.CLIENT_ID!
 const CLIENT_SECRET = process.env.CLIENT_SECRET!
 const REDIRECT_URI = process.env.REDIRECT_URI!
 
-const oauth2Client = new OAuth2Client(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI)
+const oauth2Client = new OAuth2Client(
+	CLIENT_ID,
+	CLIENT_SECRET,
+	'https://aryas-mail-app.vercel.app/api/'
+)
 
 // Handle OAuth Callback and Exchange Code for Access Token
 app.post('/callback', async (c) => {
@@ -23,7 +27,7 @@ app.post('/callback', async (c) => {
 		// Exchange code for tokens
 		const { tokens } = await oauth2Client.getToken({
 			code,
-			redirect_uri: 'https://aryas-mail-app.vercel.app/'
+			redirect_uri: 'https://aryas-mail-app.vercel.app/api/'
 		})
 		const { access_token, refresh_token } = tokens
 
