@@ -9,15 +9,9 @@ const app = new Hono().basePath('/api')
 // Define environment variables (these should be set in Vercel's environment settings)
 const CLIENT_ID = process.env.CLIENT_ID!
 const CLIENT_SECRET = process.env.CLIENT_SECRET!
-const VERCEL_URL = process.env.VERCEL_URL!
-const OAUTH_URL = 'https://accounts.google.com/o/oauth2/v2/auth'
-const TOKEN_URL = 'https://oauth2.googleapis.com/token'
+const REDIRECT_URL = process.env.REDIRECT_URI!
 
-const oauth2Client = new OAuth2Client(
-	process.env.CLIENT_ID,
-	process.env.CLIENT_SECRET,
-	process.env.REDIRECT_URI // Usually your backend URL
-)
+const oauth2Client = new OAuth2Client(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL)
 
 // Handle OAuth Callback and Exchange Code for Access Token
 app.post('/callback', async (c) => {

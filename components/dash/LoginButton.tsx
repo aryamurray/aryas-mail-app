@@ -6,6 +6,7 @@ import { fetch } from '@tauri-apps/plugin-http'
 const LoginButton = () => {
 	const login = useGoogleLogin({
 		flow: 'auth-code',
+		// redirect_uri: 'https://localhost:3000',
 		onSuccess: async (codeResponse) => {
 			console.log('pre-authed code', codeResponse)
 
