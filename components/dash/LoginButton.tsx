@@ -30,18 +30,12 @@ const LoginButton = () => {
 		onSuccess: async (response) => {
 			console.log('Authed and got Code.', response)
 
-			const url = new URL('https://aryas-mail-app.vercel.app/api/callback')
-
-			const params = new URLSearchParams({
-				code: response.code
-			})
-
-			url.search = params.toString()
-			console.log('serialized string is:', url.toString())
-
-			const authResponse = await fetch(url.toString(), {
-				method: 'GET'
-			})
+			const authResponse = await fetch(
+				`https://aryas-mail-app.vercel.app/api/callback?code=${response.code}`,
+				{
+					method: 'GET'
+				}
+			)
 
 			console.log('sent to authserver response', authResponse)
 		}

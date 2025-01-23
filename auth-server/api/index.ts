@@ -14,7 +14,7 @@ const REDIRECT_URI = process.env.REDIRECT_URI!
 const oauth2Client = new OAuth2Client(
 	CLIENT_ID,
 	CLIENT_SECRET,
-	'https://aryas-mail-app.vercel.app/api/'
+	'http://localhost:8889'
 )
 
 app.get('/callback', async (c) => {
