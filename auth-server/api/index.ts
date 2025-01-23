@@ -30,7 +30,7 @@ app.get('/callback', async (c) => {
 		// Exchange the code for tokens
 		const { tokens } = await oauth2Client.getToken({
 			code,
-			redirect_uri: 'https://aryas-mail-app.vercel.app/api/done' // This must match the registered redirect URI in GCP
+			redirect_uri: 'http://localhost:8889'
 		})
 
 		const { access_token, refresh_token } = tokens
