@@ -17,7 +17,7 @@ const oauth2Client = new OAuth2Client(
 	'https://aryas-mail-app.vercel.app/api/'
 )
 
-app.get('/callback', async (c) => {
+app.post('/callback', async (c) => {
 	try {
 		// Extract the 'code' from the query parameters
 		const { code } = c.req.query()

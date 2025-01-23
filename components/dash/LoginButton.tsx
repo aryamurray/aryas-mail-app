@@ -33,7 +33,7 @@ const LoginButton = () => {
 			const authResponse = await fetch(
 				'https://aryas-mail-app.vercel.app/api/callback',
 				{
-					method: 'GET',
+					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json'
 					},
@@ -80,7 +80,7 @@ const LoginButton = () => {
 		const response = await fetch(
 			'https://aryas-mail-app.vercel.app/api/callback',
 			{
-				method: 'POST',
+				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json'
 				},
